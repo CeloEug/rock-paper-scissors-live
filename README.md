@@ -10,9 +10,7 @@ Um jogo de **Pedra, Papel e Tesoura** que usa a webcam e um modelo de **Machine 
 
 | Tela inicial | Countdown | Resultado |
 |:---:|:---:|:---:|
-| ![Tela inicial](screenshots/01-idle.png) | ![Countdown](screenshots/02-countdown.png) | ![Resultado](screenshots/03-result.png) |
-
-> **Dica:** Salve seus prints na pasta `screenshots/` do repositório.
+| ![Tela inicial](screenshots/01.png) | ![Countdown](screenshots/02.png) | ![Resultado](screenshots/03.png) |
 
 ---
 
@@ -106,22 +104,6 @@ npm run dev
 ```
 
 Acesse `http://localhost:5173` e permita o acesso à câmera.
-
----
-
-## 📦 Deploy estático
-
-Faça o build e hospede a pasta `dist/` em qualquer provedor:
-
-```sh
-npm run build
-```
-
-A pasta `dist/` contém tudo necessário, incluindo o `model.zip`. Compatível com:
-- [Netlify](https://netlify.com) (arraste a pasta `dist/`)
-- [Vercel](https://vercel.com)
-- [GitHub Pages](https://pages.github.com)
-- [Cloudflare Pages](https://pages.cloudflare.com)
 
 ---
 
