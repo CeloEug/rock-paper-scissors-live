@@ -8,7 +8,7 @@ Um jogo de **Pedra, Papel e Tesoura** que usa a webcam e um modelo de **Machine 
 
 | Tela inicial | Countdown | Resultado |
 |:---:|:---:|:---:|
-| ![Pedra](screenshots/01.png) | ![Papel](screenshots/02.png) | ![Tesoura](screenshots/03.png) |
+| ![Pedra](screenshorts/01.png) | ![Papel](screenshorts/02.png) | ![Tesoura](screenshorts/03.png) |
 
 ---
 
