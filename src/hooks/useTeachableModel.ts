@@ -46,41 +46,50 @@ export function useTeachableModel() {
       const modelText = await modelFile.async("string");
       const modelJson = JSON.parse(modelText);
 
-      // Extract weight files
-      const weightFiles: { [key: string]: ArrayBuffer } = {};
+      // Extract weight files and concatenate into a single buffer
+      const tf = await import("@tensorflow/tfjs");
+
       const weightManifest = modelJson.weightsManifest;
+      const weightDataArrays: ArrayBuffer[] = [];
+      const weightSpecs: any[] = [];
+
       if (weightManifest) {
         for (const group of weightManifest) {
+          // Collect weight specs
+          if (group.weights) {
+            for (const w of group.weights) {
+              weightSpecs.push({
+                name: w.name,
+                shape: w.shape,
+                dtype: w.dtype || "float32",
+              });
+            }
+          }
+          // Collect weight data
           for (const path of group.paths) {
             const wFile = zip.file(path);
             if (wFile) {
-              weightFiles[path] = await wFile.async("arraybuffer");
+              const buffer = await wFile.async("arraybuffer");
+              weightDataArrays.push(buffer);
             }
           }
         }
       }
 
-      // Create blob URLs for model loading
-      // We need to create a modified model.json and serve weight files via blob URLs
-      const weightBlobs: { [key: string]: string } = {};
-      for (const [path, buffer] of Object.entries(weightFiles)) {
-        const wBlob = new Blob([buffer], { type: "application/octet-stream" });
-        weightBlobs[path] = URL.createObjectURL(wBlob);
+      // Concatenate all weight buffers
+      const totalLength = weightDataArrays.reduce((sum, buf) => sum + buf.byteLength, 0);
+      const weightData = new ArrayBuffer(totalLength);
+      const view = new Uint8Array(weightData);
+      let offset = 0;
+      for (const buf of weightDataArrays) {
+        view.set(new Uint8Array(buf), offset);
+        offset += buf.byteLength;
       }
 
-      // Update model.json paths to blob URLs
-      if (modelJson.weightsManifest) {
-        for (const group of modelJson.weightsManifest) {
-          group.paths = group.paths.map((p: string) => weightBlobs[p] || p);
-        }
-      }
-
-      const modelBlob = new Blob([JSON.stringify(modelJson)], { type: "application/json" });
-      const modelUrl = URL.createObjectURL(modelBlob);
-
-      // Dynamic import tf.js
-      const tf = await import("@tensorflow/tfjs");
-      modelInstance = await tf.loadLayersModel(modelUrl);
+      // Load model from memory (no network requests needed)
+      modelInstance = await tf.loadLayersModel(
+        tf.io.fromMemory(modelJson.modelTopology, weightSpecs, weightData)
+      );
 
       setIsReady(true);
     } catch (err) {
