@@ -6,8 +6,6 @@ Um jogo de **Pedra, Papel e Tesoura** que usa a webcam e um modelo de **Machine 
 
 ## 📸 Screenshots
 
-<!-- Substitua os caminhos abaixo por prints reais do projeto rodando -->
-
 | Tela inicial | Countdown | Resultado |
 |:---:|:---:|:---:|
 | ![Pedra](screenshots/01.png) | ![Papel](screenshots/02.png) | ![Tesoura](screenshots/03.png) |
@@ -17,9 +15,6 @@ Um jogo de **Pedra, Papel e Tesoura** que usa a webcam e um modelo de **Machine 
 ## 🎯 Motivação
 
 Este projeto foi criado para **colocar à prova um modelo de classificação de imagens** treinado com o [Google Teachable Machine](https://teachablemachine.withgoogle.com/). O objetivo é ter um ambiente divertido e interativo — um joguinho web estático — para testar se o modelo consegue distinguir corretamente entre os gestos de **pedra**, **papel**, **tesoura** e o estado **idle** (mão parada / sem gesto).
-
-Por ser um site 100% estático (sem backend), pode ser hospedado gratuitamente em qualquer provedor como **Netlify**, **Vercel**, **GitHub Pages**, **Cloudflare Pages**, etc.
-
 ---
 
 ## 🕹️ Como funciona
