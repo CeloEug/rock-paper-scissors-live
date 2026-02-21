@@ -10,7 +10,7 @@ Um jogo de **Pedra, Papel e Tesoura** que usa a webcam e um modelo de **Machine 
 
 | Tela inicial | Countdown | Resultado |
 |:---:|:---:|:---:|
-| ![Tela inicial](screenshots/01.png) | ![Countdown](screenshots/02.png) | ![Resultado](screenshots/03.png) |
+| ![Pedra](screenshots/01.png) | ![Papel](screenshots/02.png) | ![Tesoura](screenshots/03.png) |
 
 ---
 
